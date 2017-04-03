@@ -5,15 +5,19 @@ package dal.gravity;
  */
 public abstract class AbstractPendulum {
 
-
+	
     /* instance variables - string length, point mass, angular displacement
      * at t=0, constant for local gravitational field in m/s^2 (e.g., 9.81 on Earth)
      */
     private double stringLength, pointMass;
     protected double theta0; 
-    protected double g; 
     //Moved from old (and removed) java file "AbstractEarthPendulum"
-    public static final double GRAVITY = 9.80665;
+    public static double GRAVITY = 9.80665;
+    //Created interface for 2nd Refactor
+    public interface GravityModel {
+    	 public static void GravityConstant(double newGrav) { GRAVITY = newGrav; }
+		 public static double getGravitationalField() { return GRAVITY; }
+	}
 
     /**
      * Creates a new Pendulum instance using
@@ -30,7 +34,7 @@ public abstract class AbstractPendulum {
 	if (validDisplacement (inTheta0)) theta0 = inTheta0;
 	else throw new IllegalArgumentException 
 		 ("invalid angular displacement: " + inTheta0);
-	if (validGC (GRAVITY)) g = GRAVITY;
+	if (validGC (GRAVITY)) GravityModel.getGravitationalField();
 	else throw new IllegalArgumentException ("invalid local gravitational field: " + GRAVITY);
     }
 
@@ -44,7 +48,7 @@ public abstract class AbstractPendulum {
     public double getPointMass () { return pointMass; }
 
     public double getStringLength () { return stringLength; }
-
-    public double getGravitationalField () { return g; }
-
+    
+    //g is now getting the GRAVITY value from the GravityModel interface
+    public double g = GravityModel.getGravitationalField();
 }
