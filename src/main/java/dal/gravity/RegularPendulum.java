@@ -7,6 +7,8 @@ public class RegularPendulum extends AbstractPendulum {
     private double delta, iterations = 0;
     private double dissipation;
     private double lastTheta, lastVel, lastAccel;
+    //Let regular pend. have Earth's grav. value. It is the same as GRAVITY value already in the interface
+    private double earth = GRAVITY; 
 
     /**
      * Creates a new Pendulum instance 
@@ -18,6 +20,8 @@ public class RegularPendulum extends AbstractPendulum {
 	dissipation = inDiss;
 	lastVel = 0;
 	lastTheta = this.getMaxAngularDisplacement ();
+	//Set GRAVITY to equal itself
+	GravityModel.GravityConstant(earth);
 	lastAccel = -(g / this.getStringLength ())*Math.sin (lastTheta);
     }
 

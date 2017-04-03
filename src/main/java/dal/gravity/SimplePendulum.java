@@ -6,7 +6,8 @@ package dal.gravity;
 public class SimplePendulum extends AbstractPendulum {
 
     private double angularFrequency, periodOfMotion;
-
+    private double jupiter = 25.0; 
+    
     /**
      * Creates a new Pendulum instance using
      * inLength: the string length (>0)
@@ -15,6 +16,7 @@ public class SimplePendulum extends AbstractPendulum {
      */
     public SimplePendulum (double inLength, double inMass, double inTheta0) {
 	super (inLength, inMass, inTheta0);
+	GravityModel.GravityConstant(jupiter);
 	angularFrequency = Math.sqrt (g / this.getStringLength ());
 	periodOfMotion = 2 * Math.PI 
 	    * Math.sqrt (this.getStringLength () / g);
